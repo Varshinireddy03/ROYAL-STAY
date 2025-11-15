@@ -1,220 +1,202 @@
-🏨 RoyalStay – Hotel Automation System
+# RoyalStay — Hotel Automation System
 
-RoyalStay is a full-stack Hotel Management & Automation System designed to digitalize hotel operations for Guests, Receptionists, Managers, and Staff.
-The system includes end-to-end automation of reservations, billing, food services, complaints, room management, occupancy monitoring, and more.
+A full-stack Hotel Management & Automation System that digitalizes hotel operations for Guests, Receptionists, Managers, and Staff. Handles reservations, billing, food services, complaints, room management, occupancy monitoring, and more.
 
-🚀 Key Features
-👤 Guest Features
+## Table of Contents
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Backend Setup](#backend-setup)
+- [Frontend Setup](#frontend-setup)
+- [Environment Configuration](#environment-configuration)
+- [API Overview](#api-overview)
+- [Authentication](#authentication)
+- [Dashboards & Roles](#dashboards--roles)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contributors](#contributors)
+- [Contact](#contact)
 
-Login / Register
+## Key Features
+Guest
+- Register / Login
+- View available rooms
+- Make and view reservations
+- Place food orders and view menu
+- Post and track complaints
+- View bill and make payments
 
-View available rooms
+Receptionist
+- Login
+- View check-ins / check-outs
+- Assign rooms and confirm checkouts
+- Generate reservation tokens
+- Notify guests and view availability
 
-Make reservations
+Manager
+- Advanced dashboard (occupancy, revenue)
+- Manage rooms and food menu (add/update/delete)
+- Assign complaints to staff
+- View all payments and generate reports
+- Track staff activity
 
-View reservation status
+Hotel Staff
+- Login
+- View assigned complaints
+- Update service/completion status
+- View and deliver food orders
+- Update logs for manager monitoring
 
-Place food orders
+## Technology Stack
+- Frontend: React (Vite), Axios, TailwindCSS, React Router, React Hooks
+- Backend: Django, Django REST Framework, Simple JWT Authentication
+- Database: SQLite (development)
 
-View menu
-
-Post complaints
-
-Track complaint status
-
-View bill
-
-Make payment
-
-🧾 Receptionist Features
-
-Login
-
-View check-ins and checkouts
-
-Assign rooms to guests
-
-Generate reservation tokens
-
-Confirm checkout
-
-Notify guests
-
-View room availability
-
-🛠 Manager Features
-
-Advanced dashboard
-
-Monitor total occupancy
-
-Manage rooms (add/update/delete)
-
-Manage food menu
-
-Assign complaints to staff
-
-Generate revenue reports
-
-View all payments
-
-Track staff activity
-
-👷 Hotel Staff
-
-Login
-
-View assigned complaints
-
-Update service/completion status
-
-View food orders to deliver
-
-Update log status for manager monitoring
-
-💻 Technology Stack
-Frontend
-
-React.js (Vite)
-
-Axios
-
-TailwindCSS
-
-React Router
-
-React Hooks
-
-Backend
-
-Django
-
-Django REST Framework
-
-Simple JWT Authentication
-
-SQLite (development)
-
-🔐 Authentication
-
-The system uses JWT (JSON Web Token) Authentication for secure login:
-
-POST /api/token/ → returns access + refresh token
-
-GET /api/users/me/ → returns logged-in user details
-
-Tokens must be sent in the header:
-
-Authorization: Bearer <token>
-
-📁 Project Structure
+## Project Structure
 royalstay/
  ├── backend/
  │   ├── core/              # Django project
- │   ├── hotel/             # Main app
+ │   ├── hotel/             # Main app (models, serializers, views)
  │   ├── db.sqlite3
  │   ├── manage.py
- │
  ├── frontend/
- │   ├── src/
+ │   ├── src/               # React source
  │   ├── public/
  │   ├── vite.config.js
- │
  └── README.md
 
-⚙️ Backend Setup
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+## Prerequisites
+- Python 3.8+
+- Node.js 14+ / npm or yarn
+- Git
 
+## Backend Setup (local development)
+1. Open a terminal and navigate into the backend folder:
+   ```
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```
+   python3 -m venv venv
+   source venv/bin/activate    # macOS / Linux
+   # or
+   venv\Scripts\activate       # Windows (PowerShell)
+   ```
+3. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+4. Apply migrations and create superuser:
+   ```
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
+5. Run the server:
+   ```
+   python manage.py runserver
+   ```
+6. Backend runs at: http://127.0.0.1:8000
 
-Backend now runs at:
-http://127.0.0.1:8000
+## Frontend Setup
+1. Open a terminal and navigate into the frontend folder:
+   ```
+   cd frontend
+   ```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Start the dev server:
+   ```
+   npm run dev
+   ```
+4. Frontend runs at: http://localhost:5173
 
-🎨 Frontend Setup
-cd frontend
-npm install
-npm run dev
+## Environment Configuration
+Example backend environment variables (.env or Django settings):
+- SECRET_KEY=your_django_secret_key
+- DEBUG=True
+- ALLOWED_HOSTS=localhost,127.0.0.1
+- DATABASE_URL=sqlite:///db.sqlite3 (if using dj-database-url)
+- SIMPLE_JWT settings if customized
+- CORS_ORIGIN_WHITELIST or CORS_ALLOWED_ORIGINS to include the frontend URL
 
+Place any frontend environment variables in `frontend/.env` as required (e.g., REACT_APP_API_URL).
 
-Frontend runs at:
-http://localhost:5173
+## API Overview
+Authentication
+- POST /api/users/ — Register user
+- POST /api/token/ — Obtain JWT access and refresh tokens
+- GET /api/users/me/ — Get current logged-in user
 
-🔗 Important API Endpoints
-User / Authentication
-Method	Endpoint	Description
-POST	/api/users/	Register user
-POST	/api/token/	Login (get JWT)
-GET	/api/users/me/	Get logged-in user
 Rooms
-Method	Endpoint	Description
-GET	/api/rooms/	List rooms
-POST	/api/rooms/	Add room (Manager)
+- GET /api/rooms/ — List rooms
+- POST /api/rooms/ — Add room (Manager)
+
 Reservations
+- POST /api/reservations/ — Create reservation
+- GET /api/reservations/ — List reservations
 
-| POST | /api/reservations/ | Create reservation |
-| GET | /api/reservations/ | List reservations |
-
-Food
-
-| GET | /api/food/ | Menu list |
-| POST | /api/food/ | Add food (Manager) |
+Food / Menu
+- GET /api/food/ — Menu list
+- POST /api/food/ — Add food (Manager)
 
 Billing
+- GET /api/bills/ — View bills
+- POST /api/bills/ — Create bill (Manager)
 
-| GET | /api/bills/ | View bills |
-| POST | /api/bills/ | Create bill (Manager) |
+Complaints / Staff / Payments
+- Endpoints for complaints, staff assignment, orders, and payments follow similar REST patterns; consult the backend `hotel` app views/serializers for exact routes.
 
-📊 Dashboards Overview
-Guest Dashboard
+## Authentication (JWT)
+- Obtain tokens:
+  ```
+  POST /api/token/
+  {
+    "username": "user",
+    "password": "pass"
+  }
+  ```
+- Use the access token in the Authorization header:
+  ```
+  Authorization: Bearer <access_token>
+  ```
 
-Shows room info, reservation details, food menu, services, complaints, billing.
+Example curl:
+```
+curl -H "Authorization: Bearer <token>" http://127.0.0.1:8000/api/rooms/
+```
 
-Manager Dashboard
+## Dashboards & Roles
+- Guest Dashboard: reservation details, room info, menu, complaints, billing.
+- Manager Dashboard: occupancy graph, revenue chart, room & menu management, complaint assignment.
+- Receptionist Dashboard: check-ins/check-outs, room assignment, token generation.
+- Staff Dashboard: assigned complaints, food order handling, status updates.
 
-Occupancy graph
+## Testing
+- Add and run Django tests:
+  ```
+  python manage.py test
+  ```
 
-Total room stats
+## Contributing
+- Fork the repository and create feature branches.
+- Use descriptive commit messages and open pull requests against the main branch.
+- Report issues or feature requests in the Issues tab.
+- Include tests for new functionality where appropriate.
 
-Revenue chart
-
-Room management panel
-
-Food menu editor
-
-Complaint assignment
-
-Payments & bills
-
-Receptionist Dashboard
-
-Check-ins / Check-outs
-
-Room assignment
-
-Token generation
-
-Notifications
-
-Staff Dashboard
-
-Food order handling
-
-Complaint resolution
-
-Status updates
-
-🧑‍💻 Contributors
-
-Name	        Role
-P. Hruthika	 Frontend + Backend
-T. Mona Sree	Frontend
-T. Varshini	 Frontend + Backend
-Y. Yamuna	   Frontend
-
-📝 License
-
+## License
 This project is created for educational and project-based learning purposes.
+
+## Contributors
+Name | Role
+--- | ---
+P. Hruthika | Frontend + Backend
+T. Mona Sree | Frontend
+T. Varshini | Frontend + Backend
+Y. Yamuna | Frontend
+
+## Contact
+Project owner: Varshinireddy03 (GitHub)
+For questions or help: open an issue in this repository.
