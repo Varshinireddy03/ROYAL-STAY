@@ -209,11 +209,11 @@ Status updates
 
 🧑‍💻 Contributors
 
-Name	Role
-P. Hruthika	Frontend + Backend
+Name	        Role
+P. Hruthika	 Frontend + Backend
 T. Mona Sree	Frontend
-T. Varshini	Frontend + Backend
-Y. Yamuna	Frontend
+T. Varshini	 Frontend + Backend
+Y. Yamuna	   Frontend
 
 📝 License
 
