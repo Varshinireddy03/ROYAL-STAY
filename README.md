@@ -54,6 +54,7 @@ Hotel Staff
 - Database: SQLite (development)
 
 ## Project Structure
+```
 royalstay/
  ├── backend/
  │   ├── core/              # Django project
@@ -65,7 +66,7 @@ royalstay/
  │   ├── public/
  │   ├── vite.config.js
  └── README.md
-
+```
 ## Prerequisites
 - Python 3.8+
 - Node.js 14+ / npm or yarn
